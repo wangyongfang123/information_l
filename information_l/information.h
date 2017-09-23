@@ -21,7 +21,6 @@ Node* UpData(NodePtr fptr);
 NodePtr findData(NodePtr *list, const char* name);
 void printNodeInfo(const NodePtr pNode);
 void Modify(NodePtr fptr);
-//void textFile(NodePtr header);
 void processList(NodePtr list);
 char UserenterChoice(void);
 char AdminenterChoice(void);
