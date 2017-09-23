@@ -437,13 +437,13 @@ void  Create_information(int argc, char **argv)
 	argv[1] = "127.0.0.1";
 	argv[2] = "root";
 	argv[3] = "123";
-	if (mysql_real_connect(con, argv[1], argv[2], argv[3] , NULL, 0, NULL, 0) == NULL)
+	if (mysql_real_connect(con, argv[1], argv[2], argv[3] , NULL, 0, NULL, 0) == NULL)//建立连接
 	{
 		fprintf(stderr, "%s\n", mysql_error(con));
 		mysql_close(con);
 		exit(1);
 	}
-	if (mysql_query(con, "CREATE DATABASE information"))
+	if (mysql_query(con, "CREATE DATABASE information"))//创建数据库
 	{
 		fprintf(stderr, "%s\n", mysql_error(con));
 		mysql_close(con);
@@ -451,7 +451,7 @@ void  Create_information(int argc, char **argv)
 	}
 	mysql_close(con);
 }
-void  readFile_information(NodePtr* list)
+void  readFile_information(NodePtr* list)//读数据
 {
 	MYSQL *con = mysql_init(NULL);
 	Node data = { 0 };
@@ -480,7 +480,6 @@ void  readFile_information(NodePtr* list)
 
 	//int num_fields = mysql_num_fields(result);
 	int num_fields = 5;
-
 	MYSQL_ROW row;
 	MYSQL_FIELD *field;
 
@@ -517,7 +516,7 @@ void  readFile_information(NodePtr* list)
 	mysql_close(con);
 
 }
-void  textFile_Persons(NodePtr header)
+void  textFile_Persons(NodePtr header)//将链表中的数据写入到数据库中
 {
 	Node *curnode = (NodePtr)malloc(sizeof(Node));
 	memset(curnode, 0, sizeof(Node));
@@ -536,11 +535,13 @@ void  textFile_Persons(NodePtr header)
 		finish_with_error(con);
 	}
 
-	if (mysql_query(con, "DROP TABLE IF EXISTS Persons")) {
+	if (mysql_query(con, "DROP TABLE IF EXISTS Persons"))//建表
+	{
 		finish_with_error(con);
 	}
 
-	if (mysql_query(con, "CREATE TABLE Persons(AcctNum INT, Name TEXT,Address TEXT,Number INT, Balance INT)")) {
+	if (mysql_query(con, "CREATE TABLE Persons(AcctNum INT, Name TEXT,Address TEXT,Number INT, Balance INT)"))
+	{
 		finish_with_error(con);
 	}
 	//char cache[50] = { 0 };
@@ -562,10 +563,10 @@ void  textFile_Persons(NodePtr header)
 }
 int main(int argc, char **argv)
 { 
-    Create_information(argc, argv);
+    Create_information(argc, argv);//创建数据库
 	SysTitle();
 	NodePtr header = 0;
-	readFile_information(&header);
+	readFile_information(&header);//读取信息
 	Node* pCurNode = header;
 	NodePtr pNode = 0;
 	int acctNum = 1;
