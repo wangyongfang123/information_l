@@ -549,6 +549,11 @@ void  textFile_Persons(NodePtr header)//将链表中的数据写入到数据库中
 	memset(cache, 0, MAX);
 	while (curnode != 0)
 	{
+		if (curnode->acctNum == 0)//判断节点是否为0，若是则不写入
+		{
+			curnode = curnode->next;
+			continue;
+		}
 		sprintf(cache, "INSERT INTO Persons VALUES('%d','%s','%s','%d','%lf')",
 			curnode->acctNum, curnode->name, curnode->address, curnode->number, curnode->balance);
 		if (mysql_query(con, cache))
@@ -563,7 +568,7 @@ void  textFile_Persons(NodePtr header)//将链表中的数据写入到数据库中
 }
 int main(int argc, char **argv)
 { 
-    Create_information(argc, argv);//创建数据库
+   // Create_information(argc, argv);//创建数据库
 	SysTitle();
 	NodePtr header = 0;
 	readFile_information(&header);//读取信息
@@ -786,7 +791,6 @@ int main(int argc, char **argv)
 							system("pause");
 						}
 						break;
-
 						case '4':
 						{
 							Setting(&header, password);

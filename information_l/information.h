@@ -14,6 +14,11 @@ typedef struct _Node
 	char password[256];
 	struct _Node* next;
 }Node, *NodePtr;
+/*typedef struct _Password
+{
+	char account_number[256];
+	char password[256];
+}Password,*PasswordPtr;*/
 bool isEmpty(NodePtr list);
 int insertData(NodePtr *ppNode, const char* name, const char* address, int  acctNum, long int number, double balance);
 int deleteData(NodePtr *ppNode, const char* data);
